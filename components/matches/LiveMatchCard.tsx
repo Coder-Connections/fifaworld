@@ -1,7 +1,10 @@
+'use client';
+
 import Image from 'next/image';
 import type { Match } from '@/lib/types';
-import { getGroupLabel, getStageLabel, getWinnerClass } from '@/lib/utils';
-import { MapPin, Clock } from 'lucide-react';
+import { getGroupLabel, getStageLabel, getWinnerClass, formatMatchTime } from '@/lib/utils';
+import { useTimezone } from '@/providers/TimezoneProvider';
+import { MapPin } from 'lucide-react';
 
 interface Props {
   match: Match;
@@ -55,6 +58,7 @@ function TeamBlock({
 }
 
 export default function LiveMatchCard({ match }: Props) {
+  const { tz, label: tzLabel } = useTimezone();
   const matchLabel = match.group
     ? getGroupLabel(match.group)
     : getStageLabel(match.stage);
@@ -104,12 +108,17 @@ export default function LiveMatchCard({ match }: Props) {
       </div>
 
       {/* Footer */}
-      {match.venue && (
-        <div className="relative flex items-center gap-1.5 px-4 py-2.5 border-t border-white/5">
-          <MapPin className="w-3 h-3 text-stadium-100" />
-          <span className="text-xs text-stadium-100 truncate">{match.venue}</span>
-        </div>
-      )}
+      <div className="relative flex items-center justify-between px-4 py-2.5 border-t border-white/5">
+        {match.venue ? (
+          <div className="flex items-center gap-1.5 min-w-0">
+            <MapPin className="w-3 h-3 text-stadium-100 shrink-0" />
+            <span className="text-xs text-stadium-100 truncate">{match.venue}</span>
+          </div>
+        ) : <span />}
+        <span className="text-[10px] font-semibold text-wc-gold-light shrink-0 ml-2">
+          {formatMatchTime(match.utcDate, tz)} {tzLabel}
+        </span>
+      </div>
     </div>
   );
 }

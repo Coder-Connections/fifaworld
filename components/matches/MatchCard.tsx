@@ -1,5 +1,6 @@
+'use client';
+
 import Image from 'next/image';
-import Link from 'next/link';
 import type { Match } from '@/lib/types';
 import {
   cn,
@@ -12,6 +13,7 @@ import {
   formatMatchDate,
   getWinnerClass,
 } from '@/lib/utils';
+import { useTimezone } from '@/providers/TimezoneProvider';
 import { MapPin } from 'lucide-react';
 
 interface Props {
@@ -19,7 +21,7 @@ interface Props {
   compact?: boolean;
 }
 
-function TeamCrest({ crest, name, size = 32 }: { crest: string; name: string; size?: number }) {
+function TeamCrest({ crest, name, size = 32 }: { crest: string | null; name: string | null; size?: number }) {
   return (
     <div
       className="relative shrink-0 rounded overflow-hidden bg-stadium-500"
@@ -28,14 +30,14 @@ function TeamCrest({ crest, name, size = 32 }: { crest: string; name: string; si
       {crest ? (
         <Image
           src={crest}
-          alt={`${name} crest`}
+          alt={name ?? 'Team'}
           fill
           className="object-contain p-0.5"
           unoptimized
         />
       ) : (
         <div className="w-full h-full flex items-center justify-center text-xs font-bold text-stadium-100">
-          {name.slice(0, 3).toUpperCase()}
+          {name ? name.slice(0, 3).toUpperCase() : '?'}
         </div>
       )}
     </div>
@@ -65,6 +67,7 @@ function StatusBadge({ match }: { match: Match }) {
 }
 
 export default function MatchCard({ match, compact = false }: Props) {
+  const { tz, label: tzLabel } = useTimezone();
   const live = isLive(match.status);
   const finished = isFinished(match.status);
   const showScore = live || finished;
@@ -99,35 +102,42 @@ export default function MatchCard({ match, compact = false }: Props) {
               showScore ? getWinnerClass('home', match.score.winner) : 'text-white'
             )}
           >
-            {compact ? match.homeTeam.tla : match.homeTeam.shortName}
+            {compact ? (match.homeTeam.tla ?? 'TBD') : (match.homeTeam.shortName ?? match.homeTeam.name ?? 'TBD')}
           </span>
         </div>
 
         {/* Score / Time */}
-        <div className="flex flex-col items-center shrink-0 min-w-[56px]">
+        <div className="flex flex-col items-center shrink-0 min-w-[64px]">
           {showScore ? (
-            <span
-              className={cn(
-                'tabular-nums text-xl font-bold tracking-tight',
-                live ? 'text-wc-live' : 'text-white'
+            <>
+              <span
+                className={cn(
+                  'tabular-nums text-xl font-bold tracking-tight',
+                  live ? 'text-wc-live' : 'text-white'
+                )}
+              >
+                {homeScore ?? 0} - {awayScore ?? 0}
+              </span>
+              {match.score.duration !== 'REGULAR' && (
+                <span className="text-[10px] text-stadium-100 mt-0.5">
+                  {match.score.duration === 'EXTRA_TIME' ? 'AET' : 'Pen'}
+                </span>
               )}
-            >
-              {homeScore ?? 0} - {awayScore ?? 0}
-            </span>
+            </>
           ) : (
             <>
               <span className="text-base font-bold text-white tabular-nums">
-                {formatMatchTime(match.utcDate)}
+                {formatMatchTime(match.utcDate, tz)}
               </span>
-              <span className="text-xs text-stadium-100 mt-0.5">
-                {formatMatchDate(match.utcDate)}
+              <span className="text-[10px] font-semibold text-wc-gold-light mt-0.5 tracking-wide">
+                {tzLabel}
               </span>
+              {!compact && (
+                <span className="text-[10px] text-stadium-100 mt-0.5">
+                  {formatMatchDate(match.utcDate, tz)}
+                </span>
+              )}
             </>
-          )}
-          {match.score.duration !== 'REGULAR' && finished && (
-            <span className="text-[10px] text-stadium-100 mt-0.5">
-              {match.score.duration === 'EXTRA_TIME' ? 'AET' : 'Pen'}
-            </span>
           )}
         </div>
 
@@ -139,7 +149,7 @@ export default function MatchCard({ match, compact = false }: Props) {
               showScore ? getWinnerClass('away', match.score.winner) : 'text-white'
             )}
           >
-            {compact ? match.awayTeam.tla : match.awayTeam.shortName}
+            {compact ? (match.awayTeam.tla ?? 'TBD') : (match.awayTeam.shortName ?? match.awayTeam.name ?? 'TBD')}
           </span>
           <TeamCrest crest={match.awayTeam.crest} name={match.awayTeam.name} size={compact ? 28 : 36} />
         </div>

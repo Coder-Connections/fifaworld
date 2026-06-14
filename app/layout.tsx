@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import QueryProvider from '@/providers/QueryProvider';
+import { TimezoneProvider } from '@/providers/TimezoneProvider';
 import Sidebar from '@/components/layout/Sidebar';
 import Header from '@/components/layout/Header';
 
@@ -36,15 +37,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={inter.variable}>
       <body className="bg-stadium-800 text-white antialiased">
         <QueryProvider>
-          <div className="flex h-screen overflow-hidden">
-            <Sidebar />
-            <div className="flex flex-col flex-1 overflow-hidden">
-              <Header />
-              <main className="flex-1 overflow-y-auto p-4 lg:p-6">
-                {children}
-              </main>
+          <TimezoneProvider>
+            <div className="flex h-screen overflow-hidden">
+              <Sidebar />
+              <div className="flex flex-col flex-1 overflow-hidden">
+                <Header />
+                <main className="flex-1 overflow-y-auto p-4 lg:p-6">
+                  {children}
+                </main>
+              </div>
             </div>
-          </div>
+          </TimezoneProvider>
         </QueryProvider>
       </body>
     </html>
