@@ -13,26 +13,26 @@ interface Props {
 }
 
 const STATUS_OPTIONS: { value: FilterStatus; label: string }[] = [
-  { value: 'ALL', label: 'All' },
-  { value: 'LIVE', label: 'Live' },
+  { value: 'ALL',       label: 'All' },
+  { value: 'LIVE',      label: 'Live' },
   { value: 'SCHEDULED', label: 'Upcoming' },
-  { value: 'FINISHED', label: 'Results' },
+  { value: 'FINISHED',  label: 'Results' },
 ];
 
 const STAGE_OPTIONS: { value: FilterStage; label: string }[] = [
-  { value: 'ALL', label: 'All Stages' },
-  { value: 'GROUP_STAGE', label: 'Group Stage' },
-  { value: 'ROUND_OF_32', label: 'Round of 32' },
-  { value: 'ROUND_OF_16', label: 'Round of 16' },
+  { value: 'ALL',            label: 'All Stages' },
+  { value: 'GROUP_STAGE',    label: 'Group Stage' },
+  { value: 'ROUND_OF_32',   label: 'Round of 32' },
+  { value: 'ROUND_OF_16',   label: 'Round of 16' },
   { value: 'QUARTER_FINALS', label: 'Quarter-finals' },
-  { value: 'SEMI_FINALS', label: 'Semi-finals' },
-  { value: 'FINAL', label: 'Final' },
+  { value: 'SEMI_FINALS',   label: 'Semi-finals' },
+  { value: 'FINAL',         label: 'Final' },
 ];
 
 export default function MatchFilters({ status, stage, onStatusChange, onStageChange }: Props) {
   return (
-    <div className="flex flex-col sm:flex-row gap-3">
-      <div className="flex rounded-xl overflow-hidden border border-stadium-400 bg-stadium-600/50 p-1 gap-1">
+    <div className="flex flex-col sm:flex-row gap-2">
+      <div className="flex rounded-xl overflow-hidden border border-t-border bg-t-subtle p-1 gap-1">
         {STATUS_OPTIONS.map((opt) => (
           <button
             key={opt.value}
@@ -43,7 +43,7 @@ export default function MatchFilters({ status, stage, onStatusChange, onStageCha
                 ? opt.value === 'LIVE'
                   ? 'bg-wc-live text-white'
                   : 'bg-wc-blue text-white'
-                : 'text-stadium-100 hover:text-white hover:bg-stadium-500'
+                : 'text-t-muted hover:text-t-text hover:bg-t-surface',
             )}
           >
             {opt.value === 'LIVE' && status === 'LIVE' && (
@@ -57,12 +57,10 @@ export default function MatchFilters({ status, stage, onStatusChange, onStageCha
       <select
         value={stage}
         onChange={(e) => onStageChange(e.target.value as FilterStage)}
-        className="px-3 py-2 text-sm font-medium rounded-xl border border-stadium-400 bg-stadium-600 text-white focus:outline-none focus:border-wc-blue"
+        className="px-3 py-2 text-sm font-medium rounded-xl border border-t-border bg-t-surface text-t-text focus:outline-none focus:border-wc-blue"
       >
         {STAGE_OPTIONS.map((opt) => (
-          <option key={opt.value} value={opt.value} className="bg-stadium-700">
-            {opt.label}
-          </option>
+          <option key={opt.value} value={opt.value}>{opt.label}</option>
         ))}
       </select>
     </div>

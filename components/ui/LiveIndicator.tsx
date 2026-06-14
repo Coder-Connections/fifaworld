@@ -12,7 +12,6 @@ export default function LiveIndicator() {
   });
 
   const liveCount = data?.matches?.filter((m) => isLive(m.status)).length ?? 0;
-
   if (!liveCount) return null;
 
   return (

@@ -17,10 +17,10 @@ function SectionHeader({ title, href, icon: Icon }: { title: string; href?: stri
     <div className="flex items-center justify-between mb-4">
       <div className="flex items-center gap-2">
         <Icon className="w-4 h-4 text-wc-gold" />
-        <h2 className="text-base font-bold text-white">{title}</h2>
+        <h2 className="text-base font-bold text-t-text">{title}</h2>
       </div>
       {href && (
-        <Link href={href} className="flex items-center gap-1 text-xs text-stadium-100 hover:text-wc-blue-light transition-colors">
+        <Link href={href} className="flex items-center gap-1 text-xs text-t-muted hover:text-wc-blue transition-colors">
           View all <ChevronRight className="w-3 h-3" />
         </Link>
       )}
@@ -81,9 +81,9 @@ export default function DashboardPage() {
           { label: 'Goals Scored', value: totalGoals, color: 'text-wc-gold-light' },
           { label: 'Live Now', value: liveMatches.length, color: 'text-wc-live' },
         ].map(({ label, value, color }) => (
-          <div key={label} className="card-gradient rounded-xl border border-stadium-400 px-4 py-4 text-center">
+          <div key={label} className="card-gradient rounded-xl border border-t-border px-4 py-4 text-center">
             <p className={`text-2xl font-black tabular-nums ${color}`}>{value}</p>
-            <p className="text-xs text-stadium-100 mt-1">{label}</p>
+            <p className="text-xs text-t-muted mt-1">{label}</p>
           </div>
         ))}
       </div>
@@ -119,7 +119,7 @@ export default function DashboardPage() {
           <div className="space-y-4">
             {Array.from(groupedUpcoming.entries()).map(([dateKey, dayMatches]) => (
               <div key={dateKey}>
-                <p className="text-xs font-semibold text-stadium-100 uppercase tracking-wider mb-2">
+                <p className="text-xs font-semibold text-t-muted uppercase tracking-wider mb-2">
                   {formatMatchDate(dayMatches[0].utcDate)}
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
@@ -139,8 +139,8 @@ export default function DashboardPage() {
           {groupStandings.length > 0 && (
             <div className="xl:col-span-2 space-y-4">
               <div className="flex items-center justify-between mb-1">
-                <h2 className="text-base font-bold text-white">Group Standings</h2>
-                <Link href="/groups" className="flex items-center gap-1 text-xs text-stadium-100 hover:text-wc-blue-light transition-colors">
+                <h2 className="text-base font-bold text-t-text">Group Standings</h2>
+                <Link href="/groups" className="flex items-center gap-1 text-xs text-t-muted hover:text-wc-blue transition-colors">
                   All groups <ChevronRight className="w-3 h-3" />
                 </Link>
               </div>
@@ -155,8 +155,8 @@ export default function DashboardPage() {
           {(scorersData?.scorers?.length ?? 0) > 0 && (
             <div>
               <div className="flex items-center justify-between mb-3">
-                <h2 className="text-base font-bold text-white">Top Scorers</h2>
-                <Link href="/scorers" className="flex items-center gap-1 text-xs text-stadium-100 hover:text-wc-blue-light transition-colors">
+                <h2 className="text-base font-bold text-t-text">Top Scorers</h2>
+                <Link href="/scorers" className="flex items-center gap-1 text-xs text-t-muted hover:text-wc-blue transition-colors">
                   View all <ChevronRight className="w-3 h-3" />
                 </Link>
               </div>

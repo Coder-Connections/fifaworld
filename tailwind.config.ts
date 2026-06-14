@@ -7,9 +7,19 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './providers/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
+        // Semantic theme tokens — map to CSS custom properties
+        't-bg':      'var(--t-bg)',
+        't-surface': 'var(--t-surface)',
+        't-card':    'var(--t-card)',
+        't-border':  'var(--t-border)',
+        't-text':    'var(--t-text)',
+        't-muted':   'var(--t-muted)',
+        't-subtle':  'var(--t-subtle)',
+
         stadium: {
           900: '#040810',
           800: '#060B18',
@@ -57,9 +67,6 @@ const config: Config = {
         mono: ['var(--font-mono)', 'monospace'],
       },
       backgroundImage: {
-        'gradient-field': 'linear-gradient(135deg, #040810 0%, #0D1526 50%, #040810 100%)',
-        'gradient-card': 'linear-gradient(145deg, #111C32 0%, #0D1526 100%)',
-        'gradient-live': 'linear-gradient(135deg, #1a0000 0%, #2d0808 100%)',
         'gradient-gold': 'linear-gradient(135deg, #92400e 0%, #d97706 50%, #92400e 100%)',
       },
     },
