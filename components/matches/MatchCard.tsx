@@ -4,7 +4,7 @@ import Image from 'next/image';
 import type { Match } from '@/lib/types';
 import {
   cn, isLive, isFinished, getStatusLabel, getGroupLabel,
-  getStageLabel, formatMatchTime, formatMatchDate, getWinnerClass,
+  getStageLabel, formatMatchTime, formatMatchDate, getTimeOfDay, getWinnerClass,
 } from '@/lib/utils';
 import { useTimezone } from '@/providers/TimezoneProvider';
 import { MapPin } from 'lucide-react';
@@ -97,8 +97,11 @@ export default function MatchCard({ match, compact = false }: Props) {
               <span className="text-[10px] font-semibold text-wc-gold mt-0.5 tracking-wide">
                 {tzLabel}
               </span>
+              <span className="text-[10px] text-t-muted mt-0.5">
+                {getTimeOfDay(match.utcDate, tz)}
+              </span>
               {!compact && (
-                <span className="text-[10px] text-t-muted mt-0.5">
+                <span className="text-[10px] text-t-muted">
                   {formatMatchDate(match.utcDate, tz)}
                 </span>
               )}

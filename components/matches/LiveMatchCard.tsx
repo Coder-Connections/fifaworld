@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import type { Match } from '@/lib/types';
-import { getGroupLabel, getStageLabel, getWinnerClass, formatMatchTime } from '@/lib/utils';
+import { getGroupLabel, getStageLabel, getWinnerClass, formatMatchTime, getTimeOfDay } from '@/lib/utils';
 import { useTimezone } from '@/providers/TimezoneProvider';
 import { MapPin } from 'lucide-react';
 
@@ -86,7 +86,7 @@ export default function LiveMatchCard({ match }: Props) {
           </div>
         ) : <span />}
         <span className="text-[10px] font-semibold text-wc-gold shrink-0 ml-2">
-          {formatMatchTime(match.utcDate, tz)} {tzLabel}
+          {formatMatchTime(match.utcDate, tz)} {tzLabel} · {getTimeOfDay(match.utcDate, tz)}
         </span>
       </div>
     </div>

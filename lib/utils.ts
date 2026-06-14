@@ -42,9 +42,26 @@ export function formatMatchTime(utcDate: string, timezone?: string): string {
   try {
     const tz = timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone;
     const zoned = toZonedTime(parseISO(utcDate), tz);
-    return format(zoned, 'HH:mm');
+    return format(zoned, 'h:mm a');
   } catch {
-    return format(parseISO(utcDate), 'HH:mm');
+    return format(parseISO(utcDate), 'h:mm a');
+  }
+}
+
+export function getTimeOfDay(utcDate: string, timezone?: string): string {
+  try {
+    const tz = timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const zoned = toZonedTime(parseISO(utcDate), tz);
+    const hour = zoned.getHours();
+    if (hour === 0) return 'Midnight';
+    if (hour < 6) return 'Early Morning';
+    if (hour < 12) return 'Morning';
+    if (hour < 15) return 'Afternoon';
+    if (hour < 18) return 'Late Afternoon';
+    if (hour < 21) return 'Evening';
+    return 'Night';
+  } catch {
+    return '';
   }
 }
 
