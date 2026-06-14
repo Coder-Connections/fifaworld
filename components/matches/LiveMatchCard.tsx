@@ -5,6 +5,7 @@ import type { Match } from '@/lib/types';
 import { getGroupLabel, getStageLabel, getWinnerClass, formatMatchTime, getTimeOfDay } from '@/lib/utils';
 import { useTimezone } from '@/providers/TimezoneProvider';
 import { MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 interface Props { match: Match; }
 
@@ -54,7 +55,8 @@ export default function LiveMatchCard({ match }: Props) {
   const isHalfTime = match.status === 'PAUSED';
 
   return (
-    <div className="relative rounded-2xl border border-wc-live/50 bg-gradient-live overflow-hidden live-glow animate-fade-in">
+    <Link href={`/matches/${match.id}`} className="block group">
+    <div className="relative rounded-2xl border border-wc-live/50 bg-gradient-live overflow-hidden live-glow animate-fade-in group-hover:border-wc-live/80 transition-colors">
       <div className="absolute inset-0 bg-gradient-to-br from-red-100/60 dark:from-red-950/30 to-transparent pointer-events-none" />
 
       <div className="relative flex items-center justify-between px-4 pt-4 pb-2">
@@ -90,5 +92,6 @@ export default function LiveMatchCard({ match }: Props) {
         </span>
       </div>
     </div>
+    </Link>
   );
 }

@@ -4,6 +4,8 @@ import type {
   ScorersResponse,
   TeamsResponse,
   TeamResponse,
+  MatchDetail,
+  H2HResponse,
 } from './types';
 
 const BASE_URL = 'https://api.football-data.org/v4';
@@ -63,4 +65,12 @@ export async function fetchTeams(): Promise<TeamsResponse> {
 
 export async function fetchTeam(id: number): Promise<TeamResponse> {
   return apiFetch<TeamResponse>(`/teams/${id}`, 3600);
+}
+
+export async function fetchMatch(id: number): Promise<MatchDetail> {
+  return apiFetch<MatchDetail>(`/matches/${id}`, 30);
+}
+
+export async function fetchHeadToHead(id: number): Promise<H2HResponse> {
+  return apiFetch<H2HResponse>(`/matches/${id}/head2head?limit=5`, 3600);
 }

@@ -210,3 +210,21 @@ export const KNOCKOUT_STAGE_ORDER = [
   'THIRD_PLACE',
   'FINAL',
 ] as const;
+
+export interface MatchDetail extends Match {
+  competition: Competition;
+  area: Area;
+  season: Season;
+}
+
+export interface H2HAggregates {
+  numberOfMatches: number;
+  totalGoals: number;
+  homeTeam: { id: number; name: string; wins: number; draws: number; losses: number };
+  awayTeam: { id: number; name: string; wins: number; draws: number; losses: number };
+}
+
+export interface H2HResponse {
+  aggregates: H2HAggregates;
+  matches: Match[];
+}

@@ -8,6 +8,7 @@ import {
 } from '@/lib/utils';
 import { useTimezone } from '@/providers/TimezoneProvider';
 import { MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 interface Props { match: Match; compact?: boolean; }
 
@@ -54,9 +55,10 @@ export default function MatchCard({ match, compact = false }: Props) {
   const matchLabel = match.group ? getGroupLabel(match.group) : getStageLabel(match.stage);
 
   return (
+    <Link href={`/matches/${match.id}`} className="block group">
     <div className={cn(
-      'card-gradient rounded-xl border transition-all duration-150 hover:shadow-md dark:hover:shadow-none',
-      live ? 'border-wc-live/50 live-glow bg-gradient-live' : 'border-t-border hover:border-slate-300 dark:hover:border-stadium-300',
+      'card-gradient rounded-xl border transition-all duration-150 hover:shadow-md dark:hover:shadow-none group-hover:border-wc-blue/40',
+      live ? 'border-wc-live/50 live-glow bg-gradient-live' : 'border-t-border',
       compact ? 'p-3' : 'p-4',
     )}>
       <div className="flex items-center justify-between mb-3">
@@ -128,5 +130,6 @@ export default function MatchCard({ match, compact = false }: Props) {
         </div>
       )}
     </div>
+    </Link>
   );
 }
