@@ -1,0 +1,9 @@
+name = "fifaworld"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
+
+[vars]
+NEXT_PUBLIC_COMPETITION_CODE = "WC"
+# Add FOOTBALL_DATA_API_KEY as a secret via the Cloudflare dashboard
+# or: wrangler pages secret put FOOTBALL_DATA_API_KEY

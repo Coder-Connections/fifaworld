@@ -1,0 +1,13 @@
+{
+  "name": "FIFA World Cup 2026 Live",
+  "short_name": "WC2026",
+  "description": "Real-time FIFA World Cup 2026 scores and tournament information",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060B18",
+  "theme_color": "#060B18",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

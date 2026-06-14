@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #060B18;
+  --bg-secondary: #0D1526;
+  --bg-card: #111C32;
+  --border-color: #1E2D4A;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-inter, 'Inter', system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E2D4A;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2A3D5C;
+}
+
+/* Tabular numbers for scores */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Dot pulse animation for live badge */
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.dot-pulse {
+  animation: dot-pulse 1.2s ease-in-out infinite;
+}
+
+/* Subtle glow for live matches */
+@keyframes live-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(239, 68, 68, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+}
+.live-glow {
+  animation: live-glow 2s ease-in-out infinite;
+}
+
+/* Gradient background for cards */
+.card-gradient {
+  background: linear-gradient(145deg, #111C32 0%, #0D1526 100%);
+}
+
+/* Progress bar animation */
+@keyframes progress-fill {
+  from { width: 0; }
+}
+.progress-animated {
+  animation: progress-fill 1s ease-out forwards;
+}
+
+/* Bracket connector lines */
+.bracket-line {
+  border-color: #1E2D4A;
+}
+
+/* Flag fallback */
+.team-crest {
+  object-fit: contain;
+  image-rendering: crisp-edges;
+}
+
+@layer utilities {
+  .bg-stadium-900 { background-color: #040810; }
+  .bg-stadium-800 { background-color: #060B18; }
+  .bg-stadium-700 { background-color: #0D1526; }
+  .bg-stadium-600 { background-color: #111C32; }
+  .bg-stadium-500 { background-color: #172240; }
+  .border-stadium-400 { border-color: #1E2D4A; }
+  .border-stadium-300 { border-color: #2A3D5C; }
+  .text-stadium-100 { color: #8896B0; }
+
+  .text-live { color: #EF4444; }
+  .bg-live { background-color: #EF4444; }
+
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+}
